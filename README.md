@@ -1,68 +1,55 @@
-# ruby-getting-started
+Ruby API Doc
 
-A barebones Rails app, which can easily be deployed to Heroku.
+Base URL : https://afternoon-anchorage-58080.herokuapp.com
 
-This application support the [Getting Started with Ruby on Heroku](https://devcenter.heroku.com/articles/getting-started-with-ruby) article - check it out.
+GET Access Points
 
-## Running Locally
+/pong
+Returns a list of Player Objects in JSON. Each player object has an id, name, wins, losses, and 'created_at', a date when the player was created.
+Example JSON : [{
+			"id" : 1,
+			"name" : "Tyler Jensen",
+			"wins" : 4,
+			"losses" : 1,
+			"created_at" : "2016-04-25T00:58:01.009Z","updated_at":"2016-04-25T00:58:12.650Z"
+		},
+		{	
+			"id" : 2,
+			"name" : "Kyle Peterson",
+			"wins" : 1,
+			"losses" : 1,
+			"created_at" : "2016-04-25T00:58:06.637Z","updated_at":"2016-04-25T00:58:16.147Z"
+		}]
 
-Make sure you have Ruby installed.  Also, install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
+/pong/:id
+Given an id, return that player object. Each player object has an id, name, wins, losses, and 'created_at', a date when the player was created.
+Example JSON : 
+		[{
+                        "id" : 1,
+                        "name" : "Tyler Jensen",
+                        "wins" : 4,
+                        "losses" : 1,
+                        "created_at" : "2016-04-25T00:58:01.009Z","updated_at":"2016-04-25T00:58:12.650Z"
+                },
+                {       
+                        "id" : 2,
+                        "name" : "Kyle Peterson",
+                        "wins" : 1,
+                        "losses" : 1,
+                        "created_at" : "2016-04-25T00:58:06.637Z","updated_at":"2016-04-25T00:58:16.147Z"
+                }]
 
-```sh
-$ git clone git@github.com:heroku/ruby-getting-started.git
-$ cd ruby-getting-started
-$ bundle install
-$ bundle exec rake db:create db:migrate
-$ heroku local
-```
+POST Access Point
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+/pong
+Given a POST request, this URI will create a new player. Data should be sent in json, and a new "player" object should contain "name", "wins", "losses".
+Example POST request : { "player" => { "name" => "Tyler Jensen", "losses" => 0, "wins" => 0 }}
 
-## Deploying to Heroku
+PATCH Access Point
 
-```sh
-$ heroku create
-$ git push heroku master
-$ heroku run rake db:migrate
-$ heroku open
-```
+/pong/:id
+Given a PATCH request, this URI will update player data for any player object based on the id.  Data should be sent in json, and a new "player" object should contain "name", "wins", "losses".
+Example PATCH request : { "player" => { "name" => "Tyler Jensen", "losses" => 1, "wins" => 0 }}
 
-or
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Docker
-
-The app can be run and tested using the [Heroku Docker CLI plugin](https://devcenter.heroku.com/articles/introduction-local-development-with-docker).
-
-Make sure the plugin is installed:
-
-    heroku plugins:install heroku-docker
-
-Configure Docker and Docker Compose:
-
-    heroku docker:init
-
-And run the app locally:
-
-    docker-compose up web
-
-The app will now be available on the Docker daemon IP on port 8080.
-
-To work with the local database and do migrations, you can open a shell:
-
-    docker-compose run shell
-    bundle exec rake db:migrate
-
-You can also use Docker to release to Heroku:
-
-    heroku create
-    heroku docker:release
-    heroku open
-
-## Documentation
-
-For more information about using Ruby on Heroku, see these Dev Center articles:
-
-- [Ruby on Heroku](https://devcenter.heroku.com/categories/ruby)
 
