@@ -1,7 +1,6 @@
 //Called when window is loaded
 window.onload = function() {
     fetchData();
-    console.log("working");
 
     document.getElementById("add").onclick = function() {
       var text = document.getElementById("new-player-name")
